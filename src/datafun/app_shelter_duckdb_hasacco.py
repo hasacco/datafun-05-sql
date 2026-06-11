@@ -1,10 +1,10 @@
-"""app_retail_duckdb_case.py - Project script (example).
+"""app_shelter_duckdb_hasacco.py - Project script.
 
 Author: Denise Case, Hannah Sacco
 Date: 2026-02
 
 Purpose:
-- Read csv files into a ShelterDB database.
+- Read csv files into a DuckDB database.
 - Use Python to automate SQL scripts (stored in files).
 - Log the pipeline process.
 
@@ -146,10 +146,6 @@ def main() -> None:
         # ----------------------------------------------------
         # STEP 3: RUN BASIC QUERIES
         # ----------------------------------------------------
-        # run_sql_query(con, SQL_DIR / "case_retail_query_store_count.sql")
-        # run_sql_query(con, SQL_DIR / "case_retail_query_sales_count.sql")
-        # run_sql_query(con, SQL_DIR / "case_retail_query_sales_aggregate.sql")
-        # run_sql_query(con, SQL_DIR / "case_retail_query_sales_by_category.sql")
         # run_sql_query(con, SQL_DIR / "hasacco_shelter_query_show_table.sql") # DEBUG
         run_sql_query(con, SQL_DIR / "hasacco_shelter_query_animals_by_type.sql")
         run_sql_query(con, SQL_DIR / "hasacco_shelter_query_animals_by_shelter.sql")
@@ -157,7 +153,7 @@ def main() -> None:
         # ----------------------------------------------------
         # STEP 4: RUN KPI QUERY (ACTION-DRIVEN)
         # ----------------------------------------------------
-        # run_sql_query(con, SQL_DIR / "case_retail_query_kpi_revenue.sql")
+        run_sql_query(con, SQL_DIR / "hasacco_shelter_query_kpi_adoptions.sql")
 
         LOG.info("========================")
         LOG.info("Executed successfully!")

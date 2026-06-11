@@ -1,17 +1,17 @@
--- sql/sqlite/case_retail_bootstrap.sql
+-- sql/sqlite/hasacco_shelter_bootstrap.sql
 -- ============================================================
 -- PURPOSE
 -- ============================================================
--- Creates retail tables and loads data from CSV files (SQLite).
+-- Creates shelter tables and loads data from CSV files (SQLite).
 --
 -- ASSUMPTION:
 -- We always run all commands from the project root directory.
 --
 -- EXPECTED PROJECT PATHS (relative to repo root):
---   SQL:  sql/sqlite/case_retail_bootstrap.sql
---   CSV:  data/raw/retail/store.csv
---   CSV:  data/raw/retail/sale.csv
---   DB:   artifacts/sqlite/retail.sqlite
+--   SQL:  sql/sqlite/hasacco_shelter_bootstrap.sql
+--   CSV:  data/raw/shelter/shelter.csv
+--   CSV:  data/raw/shelter/adoption.csv
+--   DB:   artifacts/sqlite/shelterdb.sqlite
 --
 --
 -- ============================================================
@@ -30,12 +30,12 @@
 -- - They are related by a foreign key in the dependent/child table
 --   that references the primary key in the independent/parent table.
 --
--- OUR DOMAIN: RETAIL
--- In retail, stores sell many products.
--- Therefore, we have two tables: store (1) and sale (M).
--- - The store table is the independent/parent table (1).
--- - The sale table is the dependent/child table (M).
--- - The foreign key in the sale table references the primary key in the store table.
+-- OUR DOMAIN: SHELTER
+-- In shelter, shelters have many animals.
+-- Therefore, we have two tables: shelters (1) and adoption (M).
+-- - The shelters table is the independent/parent table (1).
+-- - The adoption table is the dependent/child table (M).
+-- - The foreign key in the adoption table references the primary key in the shelters table.
 --
 -- REQ: Tables must be created in order to satisfy foreign key constraints.
 -- REQ: Data must be loaded in order to satisfy foreign key constraints.
@@ -57,13 +57,13 @@ BEGIN TRANSACTION;
 -- STEP 1: CREATE TABLES (PARENT FIRST, THEN CHILD)
 -- ============================================================
 -- The independent table must be created first.
--- In retail, stores exist independently of sales.
--- Therefore, create the store table before the sale table.
+-- In shelter, shelters exist independently of adoptions.
+-- Therefore, create the shelters table before the adoption table.
 --
--- Create the `store` table using SQLite SQL syntax and data types.
+-- Create the `shelters` table using SQLite SQL syntax and data types.
 -- In our table, all the fields are required (NOT NULL).
 -- This means that every record must have a value for these fields.
--- The primary key is store_id, which uniquely identifies each store.
+-- The primary key is shelter_id, which uniquely identifies each shelter.
 CREATE TABLE IF NOT EXISTS shelters (
   -- Every table must have a primary key that uniquely identifies each record.
   shelter_id TEXT PRIMARY KEY,
@@ -71,11 +71,11 @@ CREATE TABLE IF NOT EXISTS shelters (
   city TEXT NOT NULL,
   capacity INTEGER NOT NULL
 );
--- Create the `sale` table using SQLite SQL syntax and data types.
+-- Create the `adoption` table using SQLite SQL syntax and data types.
 CREATE TABLE IF NOT EXISTS adoption (
   -- Every table must have a primary key that uniquely identifies each record.
   adoption_id TEXT PRIMARY KEY,
-  -- Foreign key that references the primary key in the store table. It cannot be NULL.
+  -- Foreign key that references the primary key in the shelters table. It cannot be NULL.
   shelter_id TEXT NOT NULL,
   -- All remaining fields are also required (NOT NULL).
   animal_type TEXT NOT NULL,
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS adoption (
 -- DuckDB allows us to load data from CSV files using the DuckDB COPY command.
 --
 -- The independent table must be loaded first.
--- In retail, stores exist independently of sales.
--- Therefore, load the store table before the sale table.
+-- In shelter, shelters exist independently of adoptions.
+-- Therefore, load the shelters table before the adoption table.
 --
 -- SQLITE ALTERNATIVE:
 -- If we used SQLite, we would load data using Python and pandas.

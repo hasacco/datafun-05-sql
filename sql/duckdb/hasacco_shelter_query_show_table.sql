@@ -1,22 +1,16 @@
--- sql/sqlite/case_retail_query_sales_by_category.sql
+-- sql/duckdb/hasacco_shelter_query_show_table.sql
 -- ============================================================
 -- PURPOSE
 -- ============================================================
--- Break overall sales performance down by product category.
+-- Display the contents of the shelters and adoption tables.
 --
 -- This query answers:
--- "How many sales and how much revenue do we have by category?"
+-- "What are the contents of the shelters and adoption tables?"
 --
 -- WHY:
--- - Overall totals hide important differences.
--- - Grouping lets us compare parts of the system.
--- - This often reveals where action is needed:
---   * Which categories drive revenue?
---   * Which categories underperform?
---
--- IMPORTANT:
--- This query uses GROUP BY but does NOT join tables yet.
--- We are still working only with the dependent/child table (sale).
+-- - To view the data stored in these tables.
+-- - To verify the data is correctly inserted and structured.
+-- - This is a basic query that helps us understand the raw data before we start analyzing it.
 
 SELECT *
 FROM shelters;

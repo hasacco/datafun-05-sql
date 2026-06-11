@@ -1,4 +1,4 @@
-"""app_retail_sqlite_case.py - Project script (example).
+"""app_shelter_sqlite_hasacco.py - Project script.
 
 Author: Denise Case, Hannah Sacco
 Date: 2026-06
@@ -11,10 +11,10 @@ Purpose:
 - Log the pipeline process.
 
 Paths (relative to repo root):
-   SQL:  sql/duckdb/*.sql
+   SQL:  sql/sqlite/*.sql
    CSV:  data/raw/shelter/shelter.csv
    CSV:  data/raw/shelter/adoption.csv
-   DB:   artifacts/duckdb/shelterdb.duckdb
+   DB:   artifacts/sqlite/shelterdb.sqlite
 
 """
 
@@ -230,7 +230,7 @@ def main() -> None:
         # ----------------------------------------------------
         # STEP 4: RUN KPI QUERY (ACTION-DRIVEN)
         # ----------------------------------------------------
-        # run_sql_query(con, SQL_DIR / "case_retail_query_kpi_revenue.sql")
+        run_sql_query(con, SQL_DIR / "hasacco_shelter_query_kpi_adoptions.sql")
 
         LOG.info("========================")
         LOG.info("Executed successfully!")

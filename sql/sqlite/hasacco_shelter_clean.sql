@@ -1,8 +1,8 @@
--- sql/duckdb/case_retail_clean.sql
+-- sql/duckdb/hasacco_shelter_clean.sql
 -- ============================================================
 -- PURPOSE
 -- ============================================================
--- Completely removes retail tables from the DuckDB database (DuckDB).
+-- Completely removes shelter tables from the DuckDB database (DuckDB).
 -- This "clean" step is used to reset the database so we can rebuild it.
 -- Creating a multi-table schema from scratch is a common practice in database management,
 -- and we often need to remove existing tables before recreating them during development or testing.
@@ -11,17 +11,17 @@
 -- We always run all commands from the project root directory.
 --
 -- EXPECTED PROJECT PATHS (relative to repo root):
---   SQL:  sql/duckdb/case_retail_clean.sql
---   CSV:  data/raw/retail/store.csv
---   CSV:  data/raw/retail/sale.csv
---   DB:   artifacts/duckdb/retail.duckdb
+--   SQL:  sql/duckdb/hasacco_shelter_clean.sql
+--   CSV:  data/raw/shelter/shelter.csv
+--   CSV:  data/raw/shelter/adoption.csv
+--   DB:   artifacts/duckdb/shelterdb.duckdb
 --
 --
 -- ============================================================
 -- TOPIC DOMAINS + 1:M RELATIONSHIPS
 -- ============================================================
 -- OUR DOMAINS:
--- Each domain (e.g. retail) has two tables.
+-- Each domain (e.g. shelter) has two tables.
 -- They are related in a 1-to-many relationship (1:M).
 --
 -- GENERAL:
@@ -33,12 +33,12 @@
 -- - They are related by a foreign key in the dependent/child table
 --   that references the primary key in the independent/parent table.
 --
--- OUR DOMAIN: RETAIL
--- In retail, stores sell many products.
--- Therefore, we have two tables: store (1) and sale (M).
--- - The store table is the independent/parent table (1).
--- - The sale table is the dependent/child table (M).
--- - The foreign key in the sale table references the primary key in the store table.
+-- OUR DOMAIN: SHELTER
+-- In shelter, shelters house many animals.
+-- Therefore, we have two tables: shelters (1) and adoption (M).
+-- - The shelters table is the independent/parent table (1).
+-- - The adoption table is the dependent/child table (M).
+-- - The foreign key in the adoption table references the primary key in the shelters table.
 --
 -- REQ: Tables must be removed in reverse order (CHILD FIRST, THEN PARENT)
 --      to avoid foreign key constraint issues.
@@ -61,10 +61,10 @@ BEGIN TRANSACTION;
 -- ============================================================
 -- IMPORTANT:
 -- When removing tables in a 1:M relationship, drop the dependent/child table first.
--- In retail:
--- - sale depends on store (sale has store_id).
+-- In shelter:
+-- - adoption depends on shelters (adoption has shelter_id).
 -- Therefore:
--- - Drop sale first, then drop store.
+-- - Drop adoption first, then drop shelters.
 --
 -- Drop the dependent/child table (M) first.
 DROP TABLE IF EXISTS adoption;

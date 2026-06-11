@@ -1,18 +1,18 @@
--- sql/sqlite/case_retail_query_sales_by_category.sql
+-- sql/duckdb/hasacco_shelter_query_animals_by_shelter.sql
 -- ============================================================
 -- PURPOSE
 -- ============================================================
--- Break overall sales performance down by product category.
+-- Break overall shelter population down by animal type.
 --
 -- This query answers:
--- "How many sales and how much revenue do we have by category?"
+-- "How many animals of each type are in each shelter?"
 --
 -- WHY:
 -- - Overall totals hide important differences.
 -- - Grouping lets us compare parts of the system.
 -- - This often reveals where action is needed:
---   * Which categories drive revenue?
---   * Which categories underperform?
+--   * Which animal type makes up the largest portion of each shelter's population?
+--   * Which shelter has the most diverse animal population?
 --
 -- IMPORTANT:
 -- This query uses GROUP BY but does NOT join tables yet.

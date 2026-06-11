@@ -1,18 +1,18 @@
--- sql/sqlite/case_retail_query_sales_by_category.sql
+-- sql/sqlite/hasacco_shelter_query_animals_by_type.sql
 -- ============================================================
 -- PURPOSE
 -- ============================================================
--- Break overall sales performance down by product category.
+-- Break overall total population down by animal type and calculate adoption fee stats by animal type.
 --
 -- This query answers:
--- "How many sales and how much revenue do we have by category?"
+-- "How many animals of each type are there and what is the average adoption fee by type?"
 --
 -- WHY:
 -- - Overall totals hide important differences.
 -- - Grouping lets us compare parts of the system.
 -- - This often reveals where action is needed:
---   * Which categories drive revenue?
---   * Which categories underperform?
+--   * Which animal type makes up the largest portion of the total shelter population?
+--   * Which animal type has the highest average adoption fee?
 --
 -- IMPORTANT:
 -- This query uses GROUP BY but does NOT join tables yet.

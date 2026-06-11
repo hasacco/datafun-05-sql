@@ -64,28 +64,51 @@ BEGIN TRANSACTION;
 -- In our table, all the fields are required (NOT NULL).
 -- This means that every record must have a value for these fields.
 -- The primary key is store_id, which uniquely identifies each store.
-CREATE TABLE IF NOT EXISTS store (
+CREATE TABLE IF NOT EXISTS shelters (
   -- Every table must have a primary key that uniquely identifies each record.
-  store_id TEXT PRIMARY KEY,
-  store_name TEXT NOT NULL,
+  shelter_id TEXT PRIMARY KEY,
+  shelter_name TEXT NOT NULL,
   city TEXT NOT NULL,
-  region TEXT NOT NULL
+  capacity INTEGER NOT NULL
 );
--- Create the `sale` table using DuckDB SQL syntax and data types.
-CREATE TABLE IF NOT EXISTS sale (
+-- Create the `sale` table using SQLite SQL syntax and data types.
+CREATE TABLE IF NOT EXISTS adoption (
   -- Every table must have a primary key that uniquely identifies each record.
-  sale_id TEXT PRIMARY KEY,
+  adoption_id TEXT PRIMARY KEY,
   -- Foreign key that references the primary key in the store table. It cannot be NULL.
-  store_id TEXT NOT NULL,
+  shelter_id TEXT NOT NULL,
   -- All remaining fields are also required (NOT NULL).
-  product_category TEXT NOT NULL,
-  quantity INTEGER NOT NULL,
-  amount DOUBLE NOT NULL,
-  sale_date TEXT NOT NULL
+  animal_type TEXT NOT NULL,
+  outcome TEXT NOT NULL,
+  fee REAL NOT NULL,
+  adopt_date DATE NOT NULL
 );
 --
 --
+-- ============================================================
+-- STEP 2: LOAD DATA (PARENT FIRST, THEN CHILD)
+-- ============================================================
+-- DUCKDB SPECIFIC:
+-- DuckDB allows us to load data from CSV files using the DuckDB COPY command.
+--
+-- The independent table must be loaded first.
+-- In retail, stores exist independently of sales.
+-- Therefore, load the store table before the sale table.
+--
+-- SQLITE ALTERNATIVE:
+-- If we used SQLite, we would load data using Python and pandas.
+-- Load the parent (independent) table first.
+COPY shelters
+FROM 'data/raw/shelter/shelter.csv'
+(HEADER, DELIMITER ',', QUOTE '"', ESCAPE '"');
 
+-- Load the child (dependent) table second.
+COPY adoption
+FROM 'data/raw/shelter/adoption.csv'
+(HEADER 1, DELIMITER ',', QUOTE '"', ESCAPE '"');
+
+--
+--
 -- ============================================================
 -- FINISH EXECUTION: ATOMIC BOOTSTRAP (ALL OR NOTHING)
 -- ============================================================

@@ -21,6 +21,7 @@ dependencies = [
     "datafun-toolkit",
     "duckdb",
     "pandas",
+    "datetime"
 ]
 
 [project.optional-dependencies]

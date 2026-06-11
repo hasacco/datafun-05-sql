@@ -184,3 +184,121 @@ Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 | INFO | P05 | ========================
 | INFO | P05 | END main()
 ```
+
+## Technical Modification 6-11-26
+
+The input raw data was changed from the retail data to the shelter data included in the raw folder.
+Both bootstrap.sql files were changed to read in the new data by changing the names of the columns and tables.
+New queries were built to:
+- count animals by type and calculate total and average adoption fees
+- count number of each type of animal by shelter
+- debug when csv files were not being read in correctly (printing tables)
+
+## DuckDB Example Output 6-11-26
+
+```shell
+2026-06-11 15:41:46 | INFO | P05 | === RUN START ===
+2026-06-11 15:41:46 | INFO | P05 | project=P05 Pipeline Example (DuckDB)
+2026-06-11 15:41:46 | INFO | P05 | repo_dir=datafun-05-sql
+2026-06-11 15:41:46 | INFO | P05 | python=3.14.5
+2026-06-11 15:41:46 | INFO | P05 | os=Windows 11
+2026-06-11 15:41:46 | INFO | P05 | shell=powershell
+2026-06-11 15:41:46 | INFO | P05 | cwd=.
+2026-06-11 15:41:46 | INFO | P05 | github_actions=False
+2026-06-11 15:41:46 | INFO | P05 | START main()
+2026-06-11 15:41:46 | INFO | P05 | ROOT_DIR: C:\Repos\datafun-05-sql
+2026-06-11 15:41:46 | INFO | P05 | DATA_RAW_DIR: C:\Repos\datafun-05-sql\data\raw\shelter
+2026-06-11 15:41:46 | INFO | P05 | DATA_PROCESSED_DIR: C:\Repos\datafun-05-sql\data\processed\shelter
+2026-06-11 15:41:46 | INFO | P05 | SQL_DIR: C:\Repos\datafun-05-sql\sql\duckdb
+2026-06-11 15:41:46 | INFO | P05 | DB_PATH: C:\Repos\datafun-05-sql\artifacts\duckdb\shelterdb.duckdb
+2026-06-11 15:41:46 | INFO | P05 | RUN SQL script: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_clean.sql
+2026-06-11 15:41:46 | INFO | P05 | DONE SQL script: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_clean.sql
+2026-06-11 15:41:46 | INFO | P05 | RUN SQL script: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_bootstrap.sql
+2026-06-11 15:41:46 | INFO | P05 | DONE SQL script: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_bootstrap.sql
+2026-06-11 15:41:46 | INFO | P05 |
+2026-06-11 15:41:46 | INFO | P05 | RUN SQL query: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_query_animals_by_type.sql
+2026-06-11 15:41:46 | INFO | P05 | ====================================
+2026-06-11 15:41:46 | INFO | P05 | hasacco_shelter_query_animals_by_type.sql
+2026-06-11 15:41:46 | INFO | P05 | ====================================
+2026-06-11 15:41:46 | INFO | P05 | animal_type, type_count, total_fees, avg_adoption_fee
+2026-06-11 15:41:46 | INFO | P05 | Dog, 13, 1130.0, 86.92
+2026-06-11 15:41:46 | INFO | P05 | Cat, 11, 565.0, 51.36
+2026-06-11 15:41:46 | INFO | P05 | Rabbit, 6, 90.0, 15.0
+2026-06-11 15:41:46 | INFO | P05 |
+2026-06-11 15:41:46 | INFO | P05 | RUN SQL query: C:\Repos\datafun-05-sql\sql\duckdb\hasacco_shelter_query_animals_by_shelter.sql
+2026-06-11 15:41:46 | INFO | P05 | ====================================
+2026-06-11 15:41:46 | INFO | P05 | hasacco_shelter_query_animals_by_shelter.sql
+2026-06-11 15:41:46 | INFO | P05 | ====================================
+2026-06-11 15:41:46 | INFO | P05 | shelter_id, animal_type, type_count
+2026-06-11 15:41:46 | INFO | P05 | H001, Rabbit, 2
+2026-06-11 15:41:46 | INFO | P05 | H001, Dog, 5
+2026-06-11 15:41:46 | INFO | P05 | H001, Cat, 3
+2026-06-11 15:41:46 | INFO | P05 | H002, Rabbit, 2
+2026-06-11 15:41:46 | INFO | P05 | H002, Dog, 5
+2026-06-11 15:41:46 | INFO | P05 | H002, Cat, 3
+2026-06-11 15:41:46 | INFO | P05 | H003, Cat, 5
+2026-06-11 15:41:46 | INFO | P05 | H003, Dog, 3
+2026-06-11 15:41:46 | INFO | P05 | H003, Rabbit, 2
+2026-06-11 15:41:46 | INFO | P05 | ========================
+2026-06-11 15:41:46 | INFO | P05 | Executed successfully!
+2026-06-11 15:41:46 | INFO | P05 | ========================
+2026-06-11 15:41:46 | INFO | P05 | END main()
+```
+
+##SQLite Example Output 6-11-26
+
+```shell
+2026-06-11 15:40:06 | INFO | P05 | === RUN START ===
+2026-06-11 15:40:06 | INFO | P05 | project=P05 Pipeline Example (SQLite)
+2026-06-11 15:40:06 | INFO | P05 | repo_dir=datafun-05-sql
+2026-06-11 15:40:06 | INFO | P05 | python=3.14.5
+2026-06-11 15:40:06 | INFO | P05 | os=Windows 11
+2026-06-11 15:40:06 | INFO | P05 | shell=powershell
+2026-06-11 15:40:06 | INFO | P05 | cwd=.
+2026-06-11 15:40:06 | INFO | P05 | github_actions=False
+2026-06-11 15:40:06 | INFO | P05 | START main()
+2026-06-11 15:40:06 | INFO | P05 | ROOT_DIR: C:\Repos\datafun-05-sql
+2026-06-11 15:40:06 | INFO | P05 | DATA_RAW_DIR: C:\Repos\datafun-05-sql\data\raw\shelter
+2026-06-11 15:40:06 | INFO | P05 | DATA_PROCESSED_DIR: C:\Repos\datafun-05-sql\data\processed\shelter
+2026-06-11 15:40:06 | INFO | P05 | SQL_DIR: C:\Repos\datafun-05-sql\sql\sqlite
+2026-06-11 15:40:06 | INFO | P05 | DB_PATH: C:\Repos\datafun-05-sql\artifacts\sqlite\shelterdb.sqlite
+2026-06-11 15:40:06 | INFO | P05 | RUN SQL script: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_clean.sql
+2026-06-11 15:40:06 | INFO | P05 | DONE SQL script: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_clean.sql
+2026-06-11 15:40:06 | INFO | P05 | RUN SQL script: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_bootstrap.sql
+2026-06-11 15:40:06 | INFO | P05 | DONE SQL script: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_bootstrap.sql
+2026-06-11 15:40:06 | INFO | P05 | LOAD CSV -> table shelter: C:\Repos\datafun-05-sql\data\raw\shelter\shelter.csv
+2026-06-11 15:40:06 | INFO | P05 | DONE loading shelter rows: 3
+2026-06-11 15:40:06 | INFO | P05 | LOAD CSV -> table adoption: C:\Repos\datafun-05-sql\data\raw\shelter\adoption.csv
+C:\Repos\datafun-05-sql\src\datafun\app_shelter_sqlite_hasacco.py:166: DeprecationWarning: The default date adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  con.executemany(
+2026-06-11 15:40:06 | INFO | P05 | DONE loading adoption rows: 30
+2026-06-11 15:40:06 | INFO | P05 | COMMIT: data load complete
+2026-06-11 15:40:06 | INFO | P05 |
+2026-06-11 15:40:06 | INFO | P05 | RUN SQL query: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_query_animals_by_type.sql
+2026-06-11 15:40:06 | INFO | P05 | ====================================
+2026-06-11 15:40:06 | INFO | P05 | hasacco_shelter_query_animals_by_type.sql
+2026-06-11 15:40:06 | INFO | P05 | ====================================
+2026-06-11 15:40:06 | INFO | P05 | animal_type, type_count, total_fees, avg_adoption_fee
+2026-06-11 15:40:06 | INFO | P05 | Dog, 13, 1130.0, 86.92
+2026-06-11 15:40:06 | INFO | P05 | Cat, 11, 565.0, 51.36
+2026-06-11 15:40:06 | INFO | P05 | Rabbit, 6, 90.0, 15.0
+2026-06-11 15:40:06 | INFO | P05 |
+2026-06-11 15:40:06 | INFO | P05 | RUN SQL query: C:\Repos\datafun-05-sql\sql\sqlite\hasacco_shelter_query_animals_by_shelter.sql
+2026-06-11 15:40:06 | INFO | P05 | ====================================
+2026-06-11 15:40:06 | INFO | P05 | hasacco_shelter_query_animals_by_shelter.sql
+2026-06-11 15:40:06 | INFO | P05 | ====================================
+2026-06-11 15:40:06 | INFO | P05 | shelter_id, animal_type, type_count
+2026-06-11 15:40:06 | INFO | P05 | H001, Cat, 3
+2026-06-11 15:40:06 | INFO | P05 | H001, Dog, 5
+2026-06-11 15:40:06 | INFO | P05 | H001, Rabbit, 2
+2026-06-11 15:40:06 | INFO | P05 | H002, Cat, 3
+2026-06-11 15:40:06 | INFO | P05 | H002, Dog, 5
+2026-06-11 15:40:06 | INFO | P05 | H002, Rabbit, 2
+2026-06-11 15:40:06 | INFO | P05 | H003, Cat, 5
+2026-06-11 15:40:06 | INFO | P05 | H003, Dog, 3
+2026-06-11 15:40:06 | INFO | P05 | H003, Rabbit, 2
+2026-06-11 15:40:06 | INFO | P05 | ========================
+2026-06-11 15:40:06 | INFO | P05 | Executed successfully!
+2026-06-11 15:40:06 | INFO | P05 | ========================
+2026-06-11 15:40:06 | INFO | P05 | END main()
+```

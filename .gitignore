@@ -107,3 +107,7 @@ dist/
 
 # WHY: Notebook checkpoint state is generated.
 .ipynb_checkpoints/
+
+# WHY: Files are too large to be tracked.
+artifacts/sqlite/candydb.sqlite
+artifacts/duckdb/candydb.duckdb
